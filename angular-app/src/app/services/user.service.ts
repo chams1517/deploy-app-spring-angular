@@ -2,14 +2,15 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable, last } from 'rxjs';
 import { User } from '../models/User';
+import { environment } from '../../environments/environment';
 
 @Injectable({
   providedIn: 'root'
 })
 export class UserService {
 
-  baseURL:string="http://172.16.94.30:8081/user"
-  constructor(private  httpClient:HttpClient) { }
+  baseURL: string = environment.apiUrl;  // <-- use environment variable
+  constructor(private httpClient: HttpClient) { }
 
   getAllUsers():Observable<any>{
     let headers = new HttpHeaders();
