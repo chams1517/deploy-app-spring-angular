@@ -1,6 +1,6 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Observable, last } from 'rxjs';
+import { Observable } from 'rxjs';
 import { User } from '../models/User';
 
 @Injectable({
@@ -8,26 +8,28 @@ import { User } from '../models/User';
 })
 export class UserService {
 
-  baseURL:string="http://172.16.94.30:8081/user"
-  constructor(private  httpClient:HttpClient) { }
+  // Use dynamic host instead of localhost or private IP
+  baseURL: string = "http://" + window.location.hostname + ":8081/user";
 
-  getAllUsers():Observable<any>{
+  constructor(private httpClient: HttpClient) { }
+
+  getAllUsers(): Observable<any> {
     let headers = new HttpHeaders();
     headers.append("Access-Control-Allow-Origin", "*")
-    return this.httpClient.get(this.baseURL + "/all",{headers})
+    return this.httpClient.get(this.baseURL + "/all", { headers });
   }
 
-  deleteUser(id:string):Observable<any>{
+  deleteUser(id: string): Observable<any> {
     let headers = new HttpHeaders();
     headers.append("Access-Control-Allow-Origin", "*")
-    return this.httpClient.delete(this.baseURL + "/delete/"+id,{headers})
+    return this.httpClient.delete(this.baseURL + "/delete/" + id, { headers });
   }
 
-  addUser(firstname:string,lastname:string):Observable<any>{
+  addUser(firstname: string, lastname: string): Observable<any> {
     let body = { firstName: firstname, lastName: lastname };
-    let url=this.baseURL + "/add";
+    let url = this.baseURL + "/add";
     let headers = new HttpHeaders();
     headers.append("Access-Control-Allow-Origin", "*")
-    return this.httpClient.post(url,body,{headers})
+    return this.httpClient.post(url, body, { headers });
   }
 }
