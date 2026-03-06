@@ -8,7 +8,7 @@ import { User } from '../models/User';
 })
 export class UserService {
 
-  // Use localhost for local testing
+  // Use localhost to reach backend on host machine
   baseURL: string = "http://localhost:8081/user";
 
   constructor(private httpClient: HttpClient) { }
@@ -27,9 +27,8 @@ export class UserService {
 
   addUser(firstname: string, lastname: string): Observable<any> {
     let body = { firstName: firstname, lastName: lastname };
-    let url = this.baseURL + "/add";
     let headers = new HttpHeaders();
     headers.append("Access-Control-Allow-Origin", "*")
-    return this.httpClient.post(url, body, { headers });
+    return this.httpClient.post(this.baseURL + "/add", body, { headers });
   }
 }
