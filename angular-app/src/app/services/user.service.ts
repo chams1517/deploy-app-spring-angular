@@ -1,4 +1,4 @@
-import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { User } from '../models/User';
@@ -7,27 +7,21 @@ import { User } from '../models/User';
   providedIn: 'root'
 })
 export class UserService {
-  // Use localhost instead of any IP
+
   baseURL: string = "http://localhost:8081/user";
 
   constructor(private httpClient: HttpClient) { }
 
   getAllUsers(): Observable<any> {
-    let headers = new HttpHeaders();
-    headers.append("Access-Control-Allow-Origin", "*");
-    return this.httpClient.get(this.baseURL + "/all", { headers });
+    return this.httpClient.get(this.baseURL + "/all");
   }
 
   deleteUser(id: string): Observable<any> {
-    let headers = new HttpHeaders();
-    headers.append("Access-Control-Allow-Origin", "*");
-    return this.httpClient.delete(this.baseURL + "/delete/" + id, { headers });
+    return this.httpClient.delete(this.baseURL + "/delete/" + id);
   }
 
   addUser(firstname: string, lastname: string): Observable<any> {
     let body = { firstName: firstname, lastName: lastname };
-    let headers = new HttpHeaders();
-    headers.append("Access-Control-Allow-Origin", "*");
-    return this.httpClient.post(this.baseURL + "/add", body, { headers });
+    return this.httpClient.post(this.baseURL + "/add", body);
   }
 }
