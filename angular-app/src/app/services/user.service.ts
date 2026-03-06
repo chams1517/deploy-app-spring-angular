@@ -8,8 +8,8 @@ import { User } from '../models/User';
 })
 export class UserService {
 
-  // Use dynamic host instead of localhost or private IP
-  baseURL: string = "http://" + window.location.hostname + ":8081/user";
+  // Use localhost for local testing
+  baseURL: string = "http://localhost:8081/user";
 
   constructor(private httpClient: HttpClient) { }
 
